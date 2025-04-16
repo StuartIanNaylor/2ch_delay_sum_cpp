@@ -6,10 +6,13 @@
 #include <atomic>
 #include <memory>
 #include <vector>
+#include <signal.h>
 #include "beamformer_defs.h"
 #include "circular_buffer.h"
 #include "error_handler.h"
 #include "logger.h"
+#include "audio_capture.h"
+#include "alsa_output.h"
 
 class BeamFormer {
 private:
@@ -76,6 +79,10 @@ public:
     void setState(AppState newState) { state = newState; }
     int getCurrentAngle() const { return currentSteeringAngle; }
 };
+
+// Forward class declarations to avoid circular dependencies
+class AudioCapture;
+class AlsaOutput;
 
 // Main application class
 class BeamFormerApp {
